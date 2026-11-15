@@ -38,6 +38,25 @@ The table compares Φ at the PRX point $(g, h) = (1.08, 0.30)$ with the two opti
 * The gain over PRX shrinks with system size, and the minima become much shallower: Hessian eigenvalues drop by about 7–10× from L = 9 to L = 11.
 * The optimized Hamiltonians are complex (XY+YX and YZ+ZY are imaginary). Their level statistics move from GOE ($\langle r\rangle = 0.531$) towards GUE (0.600).
 
+## Figures
+
+**Φ over the MFIM parameter plane.** Rows are blocks of 1, 2 and 3 spins ($l = 0, 1, 2$); columns are $L = 9$ to $12$. The red dot is PRX, the star the grid minimum, and the cyan "KH" label the Kim–Huse point, just outside the grid. The grid minima lie at $g = 1.15$–$1.45$, $h = 0.35$–$0.45$, a little above and to the right of PRX. *(notebook 02)*
+
+![Φ(0), Φ(1) and Φ(2) landscapes in (g, h) for L = 9-12](figures/phi_landscapes.png)
+
+**System-size scaling.** The grid minimum of $\Phi(l)$ roughly halves with each added spin. That is close to the dashed $2^{-L}$ line, the inverse Hilbert-space dimension, which is the scaling ETH predicts for squared differences between neighbouring eigenstates. *(notebook 02)*
+
+<p align="center"><img src="figures/phi_min_scaling.png" alt="Minimum of Phi(l) vs L on a log scale, with a 2^-L reference line" width="520"></p>
+
+**One coupling at a time ($L = 9$).** $\Phi$ for $J\,ZZ + Z + \text{edge} + c\,O$ as a function of $c$, at the best $J$ for each two-spin term $O$. On their own, XX/YY and XZ+ZX/YZ+ZY get 8–12 % below PRX (dashed). Optimizing all couplings together (Min 1, Min 2) gets 27–28 % below. *(notebook 03)*
+
+<p align="center"><img src="figures/L9_single_coupling_1d.png" alt="Phi vs single coupling strength c for each two-spin term, L = 9" width="620"></p>
+
+**The optima are local minima ($L = 11$).** $\Phi/\Phi_\mathrm{min}$ in the plane of the two softest Hessian modes, with profiles along each mode. Both optima are the lowest point of their scans. *(notebook 05)*
+
+![Plane scan around Min 1 at L = 11](figures/L11_min1_plane_scan.png)
+![Plane scan around Min 2 at L = 11](figures/L11_min2_plane_scan.png)
+
 ## Repository layout
 
 ```
