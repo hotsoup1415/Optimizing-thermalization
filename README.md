@@ -38,6 +38,13 @@ The table compares Φ at the PRX point $(g, h) = (1.08, 0.30)$ with the two opti
 * The gain over PRX shrinks with system size, and the minima become much shallower: Hessian eigenvalues drop by about 7–10× from L = 9 to L = 11.
 * The optimized Hamiltonians are complex (XY+YX and YZ+ZY are imaginary). Their level statistics move from GOE ($\langle r\rangle = 0.531$) towards GUE (0.600).
 
+### Comparison with random states (notebooks 06 and 07)
+
+* **Haar baseline.** Haar-random (GOE/GUE) eigenbases give $\Phi = 0.0658$ (real) and $0.0623$ (complex) at L = 9, l = 3. The spread of the averaged $\Phi$ is 1.7× larger than an independent-pairs estimate, because neighbouring pairs and overlapping blocks are correlated. PRX sits at 1.49× the real baseline.
+* **Energy conservation.** Random states confined to narrow energy windows of $H$ reproduce PRX's $\Phi$ to within 1% at L = 9 and 0.4% at L = 11. PRX's excess over Haar is therefore a consequence of energy conservation, not of non-random eigenstates.
+* **Time-reversal symmetry costs more once energy is conserved.** For structureless states, real vs complex changes $\Phi$ by only about $1 + 1/(m+1)$: 5.7% at l = 3 and 3.0% at l = 4. Within narrow energy windows, mixing PRX's eigenstates with complex rather than real coefficients lowers $\Phi$ by up to 28% at L = 9 and 19% at L = 11. Restoring time reversal in the optimized couplings, at fixed coupling strengths, raises $\Phi$ by 5–13%.
+* Equation numbers in notebooks 06 and 07 refer to the analytical note `phi_analytical_calculation.pdf`, which is not included in this repository.
+
 ## Figures
 
 **Φ over the MFIM parameter plane.** Rows are blocks of 1, 2 and 3 spins ($l = 0, 1, 2$); columns are $L = 9$ to $12$. The red dot is PRX, the star the grid minimum, and the cyan "KH" label the Kim–Huse point, just outside the grid. The grid minima lie at $g = 1.15$–$1.45$, $h = 0.35$–$0.45$, a little above and to the right of PRX. *(notebook 02)*
@@ -74,6 +81,8 @@ notebooks/
   03_two_spin_search_L9.ipynb   single-coupling scans; Min 1 (Newton) and Min 2 (DE) at L = 9
   04_verify_minima_L9.ipynb     Hessians in several frames, J-direction check, <r>, H* symmetry
   05_L11.ipynb                  the search repeated at L = 11
+  06_random_state_baselines.ipynb   exact random-state statistics of Phi; Haar null for the averaged metric
+  07_energy_conservation.ipynb      energy-constrained baselines; time-reversal symmetry under energy conservation
 scripts/
   compute_landscapes.py         writes results/landscapes/mfim_L{L}.npz
   run_L11_search.py             writes results/L11_search.json
@@ -94,7 +103,7 @@ python scripts/run_L11_search.py                          # about 1.5-3 h
 jupyter lab notebooks/
 ```
 
-Notebooks 01, 02 and 05 only read the cached files in `results/`, so they run in seconds to minutes. Notebook 03 runs the L = 9 searches (about 30–60 min) and notebook 04 the L = 9 checks (about 10 min). Tested with Python 3.13, NumPy 2.3, SciPy 1.16 and Matplotlib 3.10 on an Apple M4.
+Notebooks 01, 02 and 05 only read the cached files in `results/`, so they run in seconds to minutes. Notebook 03 runs the L = 9 searches (about 30–60 min) and notebook 04 the L = 9 checks (about 10 min). Notebooks 06 and 07 are self-contained and take about 4 and 8 min. Each has a `QUICK` switch for a pass of under a minute. Tested with Python 3.13, NumPy 2.3, SciPy 1.16 and Matplotlib 3.10 on an Apple M4.
 
 **BLAS threads.** OpenBLAS starts one thread per core by default. Several such processes running at once compete for the cores and can run 100× slower, so either run the heavy jobs one at a time or cap each with e.g. `OPENBLAS_NUM_THREADS=2`. Capping changes floating-point rounding in the last bit. The L-BFGS-B searches can then stop at a slightly different point along the exact Z-rotation symmetry: the same $\Phi$ and (checked at L = 9) the same standard-frame parameters to within 1e-6, but raw canonical couplings that differ around the fourth decimal, and different evaluation counts. The outputs in this repository were produced one job at a time with the default thread count.
 
